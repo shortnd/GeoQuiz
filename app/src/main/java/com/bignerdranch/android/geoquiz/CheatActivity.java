@@ -15,6 +15,8 @@ public class CheatActivity extends AppCompatActivity {
      */
     private static final String EXTRA_ANSWER_IS_TRUE =
             "com.bignerdranch.android.geoquiz.answer_is_true";
+    private static final String EXTRA_ANSWER_SHOWN =
+            "com.bignerdranch.android.geoquiz.answer_shown";
 
     // Member variable for the intent extra
     boolean mAnswerIsTrue;
@@ -28,6 +30,10 @@ public class CheatActivity extends AppCompatActivity {
         Intent intent = new Intent(packageContext, CheatActivity.class);
         intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
         return intent;
+    }
+
+    public static boolean wasAnswerShown(Intent result) {
+        return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
     }
 
     @Override
@@ -52,5 +58,16 @@ public class CheatActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Calls the intent to send the response back to the parent activity
+        setAnswerShownResult(true);
+    }
+
+    // Creates a new intent to send back the result if the user chooses to
+    // look at the answer
+    private void setAnswerShownResult(boolean isAnswerShown) {
+        Intent data = new Intent();
+        data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
+        setResult(RESULT_OK, data);
     }
 }
