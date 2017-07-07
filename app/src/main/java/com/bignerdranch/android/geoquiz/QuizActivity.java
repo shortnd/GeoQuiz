@@ -1,5 +1,6 @@
 package com.bignerdranch.android.geoquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mCheatButton;
 
     /**
      * Variable for the question
@@ -90,6 +92,24 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
+            }
+        });
+
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        // Setting a listener for the Cheat Button
+        // Using an anonymous inner class
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start CheatActivity
+
+                // Saves the boolean of the current question if it was true
+                // or false
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                // Create a new intent using the CheatActivity.newIntent
+                Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
+                // starts the CheatActivity
+                startActivity(intent);
             }
         });
 
