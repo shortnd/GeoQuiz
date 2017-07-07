@@ -56,11 +56,10 @@ public class CheatActivity extends AppCompatActivity {
                 } else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
+                // Calls the intent to send the response back to the parent activity
+                setAnswerShownResult(true);
             }
         });
-
-        // Calls the intent to send the response back to the parent activity
-        setAnswerShownResult(true);
     }
 
     // Creates a new intent to send back the result if the user chooses to
