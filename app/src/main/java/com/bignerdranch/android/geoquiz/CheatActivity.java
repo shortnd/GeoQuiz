@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class CheatActivity extends AppCompatActivity {
+
+    private static final String TAG = "CheatActivity";
 
     /**
      * Key for the answer from QuizActivity
@@ -17,6 +20,9 @@ public class CheatActivity extends AppCompatActivity {
             "com.bignerdranch.android.geoquiz.answer_is_true";
     private static final String EXTRA_ANSWER_SHOWN =
             "com.bignerdranch.android.geoquiz.answer_shown";
+
+    private static final String KEY_INDEX = "index";
+    private static final String CHEAT_INDEX = "cheated";
 
     // Member variable for the intent extra
     boolean mAnswerIsTrue;
@@ -63,6 +69,13 @@ public class CheatActivity extends AppCompatActivity {
         setAnswerShownResult(true);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSavedInstanceState");
+        savedInstanceState.putBoolean(CHEAT_INDEX, mAnswerIsTrue);
+    }
+
     // Creates a new intent to send back the result if the user chooses to
     // look at the answer
     private void setAnswerShownResult(boolean isAnswerShown) {
@@ -70,4 +83,5 @@ public class CheatActivity extends AppCompatActivity {
         data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
         setResult(RESULT_OK, data);
     }
+    
 }
